@@ -10,7 +10,7 @@ class Customer(models.Model):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length = 20)
-    picture = models.URLField(max_length = 200, default='https://designshack.net/wp-content/uploads/Free-Simple-Restaurant-Logo-Template.jpg')
+    picture = models.URLField(max_length = 500, default='https://designshack.net/wp-content/uploads/Free-Simple-Restaurant-Logo-Template.jpg')
     cuisine = models.CharField(max_length = 200)
     rating = models.FloatField()
     
