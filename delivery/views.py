@@ -232,7 +232,7 @@ def open_show_restaurant(request):
 
     return render(
         request,
-        'delivery/show_restaurants.html',
+        'delivery/show_restaurant.html',
         {
             'restaurantList':
             restaurantList
@@ -477,7 +477,7 @@ def add_to_cart(
     )
 
     # Get existing cart or create new cart
-    cart, created = Cart.objects.get_or_create(
+    cart, _created = Cart.objects.get_or_create(
         customer=customer
     )
 
