@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign In - Crazy Crave</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff3e0, #ffe4ec);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+
+            background: linear-gradient(
+                135deg,
+                #ff6b35,
+                #ff4081
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            background: #fff3e0;
+            color: #ff4081;
+        }
+
+        /* Main */
+
+        .main-container {
+            flex: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 50px 20px;
+        }
+
+        /* Card */
+
+        .signin-card {
+            width: 100%;
+            max-width: 450px;
+
+            background: white;
+
+            padding: 38px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .signin-icon {
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #fff3e0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
+        }
+
+        .signin-card h1 {
+            text-align: center;
+            color: #ff4081;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Messages */
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+
+            border: 1px solid #c8e6c9;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+
+            border: 1px solid #ffcdd2;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #444;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 2px solid #eee;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #ff4081;
+
+            box-shadow:
+                0 0 8px rgba(255,64,129,0.15);
+        }
+
+        /* Button */
+
+        .signin-btn {
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 30px;
+
+            background: linear-gradient(
+                135deg,
+                #ff6b35,
+                #ff4081
+            );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .signin-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(255,64,129,0.3);
+        }
+
+        /* Signup */
+
+        .signup-text {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #ff4081;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #222;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            font-size: 14px;
+        }
+
+        footer span {
+            color: #ff6b35;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .signin-card {
+                padding: 28px 20px;
+            }
+
+            .signin-card h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 Crazy Crave
+    </div>
+
+    <a
+        href="{% url 'index' %}"
+        class="home-link"
+    >
+        🏠 Home
+    </a>
+
+</nav>
+
+
+<!-- Main -->
+
+<main class="main-container">
+
+    <div class="signin-card">
+
+
+        <div class="signin-icon">
+            🔐
+        </div>
+
+
+        <h1>
+            Welcome Back!
+        </h1>
+
+
+        <p class="subtitle">
+            Sign in to continue your delicious journey 🍕
+        </p>
+
+
+        <!-- Success message -->
+
+        {% if success %}
+
+            <div class="success-message">
+                ✅ {{ success }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- Error message -->
+
+        {% if error %}
+
+            <div class="error-message">
+                ⚠️ {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- Login form -->
+
+        <form
+            method="POST"
+            action="{% url 'signin' %}"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label for="username">
+                    👤 Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    🔒 Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="signin-btn"
+            >
+                🔓 Sign In
+            </button>
+
+        </form>
+
+
+        <p class="signup-text">
+
+            Don't have an account?
+
+            <a href="{% url 'open_signup' %}">
+                Create Account
+            </a>
+
+        </p>
+
+
+    </div>
+
+</main>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026
+        <span>Crazy Crave</span>
+        |
+        Made with ❤️ for food lovers
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

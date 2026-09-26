@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Restaurants - Crazy Crave</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff8f2;
+            color: #222;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 9px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Header */
+
+        .page-header {
+            text-align: center;
+            padding: 45px 20px 30px;
+        }
+
+        .page-header h1 {
+            color: #ff4081;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        /* Add button */
+
+        .add-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .add-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            color: white;
+            text-decoration: none;
+            padding: 13px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,64,129,0.3);
+        }
+
+        /* Restaurant grid */
+
+        .restaurant-grid {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 50px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* Restaurant card */
+
+        .restaurant-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.09);
+            transition: 0.3s;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .restaurant-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .restaurant-content {
+            padding: 22px;
+        }
+
+        .restaurant-content h2 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .cuisine {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: inline-block;
+            background: #fff3cd;
+            color: #9a6700;
+            padding: 6px 11px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Actions */
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            text-align: center;
+            text-decoration: none;
+            padding: 10px 7px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .menu-btn {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .edit-btn {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .delete-btn {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.85;
+        }
+
+        /* Empty */
+
+        .empty {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto 60px;
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.08);
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            color: #ff4081;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #ff6b35;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 950px) {
+
+            .restaurant-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 Crazy Crave
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'admin_home' %}">
+            🏠 Dashboard
+        </a>
+
+        <a href="{% url 'open_add_restaurant' %}">
+            ➕ Add Restaurant
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Header -->
+
+<section class="page-header">
+
+    <h1>
+        🍽️ Manage Restaurants
+    </h1>
+
+    <p>
+        View and manage all restaurants in Crazy Crave.
+    </p>
+
+</section>
+
+
+<!-- Add Restaurant -->
+
+<div class="add-section">
+
+    <a
+        href="{% url 'open_add_restaurant' %}"
+        class="add-btn"
+    >
+        ➕ Add New Restaurant
+    </a>
+
+</div>
+
+
+{% if restaurantList %}
+
+
+<!-- Restaurant Grid -->
+
+<div class="restaurant-grid">
+
+
+    {% for r in restaurantList %}
+
+        <div class="restaurant-card">
+
+
+            <img
+                src="{{ r.picture }}"
+                alt="{{ r.name }}"
+                class="restaurant-image"
+            >
+
+
+            <div class="restaurant-content">
+
+                <h2>
+                    {{ r.name }}
+                </h2>
+
+
+                <p class="cuisine">
+                    🍴 {{ r.cuisine }}
+                </p>
+
+
+                <span class="rating">
+                    ⭐ {{ r.rating }}/5
+                </span>
+
+
+                <!-- Actions -->
+
+                <div class="actions">
+
+
+                    <a
+                        href="{% url 'open_update_menu' r.id %}"
+                        class="action-btn menu-btn"
+                    >
+                        🍕 Menu
+                    </a>
+
+
+                    <a
+                        href="{% url 'open_update_restaurant' r.id %}"
+                        class="action-btn edit-btn"
+                    >
+                        ✏️ Edit
+                    </a>
+
+
+                    <a
+                        href="{% url 'delete_restaurant' r.id %}"
+                        class="action-btn delete-btn"
+                        onclick="return confirm('Are you sure you want to delete this restaurant?');"
+                    >
+                        🗑️ Delete
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+
+</div>
+
+
+{% else %}
+
+
+<!-- Empty State -->
+
+<div class="empty">
+
+    <div class="empty-icon">
+        🏪
+    </div>
+
+    <h2>
+        No Restaurants Yet
+    </h2>
+
+    <p>
+        Start by adding your first restaurant.
+    </p>
+
+    <a
+        href="{% url 'open_add_restaurant' %}"
+        class="add-btn"
+    >
+        ➕ Add Restaurant
+    </a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026
+        <span>Crazy Crave</span>
+        | Admin Panel
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

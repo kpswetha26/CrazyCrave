@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ restaurant.name }} Menu - Crazy Crave</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff8f2;
+            color: #222;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 9px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+
+        .menu-header {
+            text-align: center;
+            padding: 45px 20px 30px;
+        }
+
+        .menu-header h1 {
+            color: #ff4081;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .menu-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .restaurant-name {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        /* Menu Grid */
+
+        .menu-grid {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 50px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* Food Card */
+
+        .food-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.09);
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .food-image {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .food-content {
+            padding: 22px;
+        }
+
+        .food-content h2 {
+            color: #ff6b35;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 45px;
+            margin-bottom: 15px;
+        }
+
+        /* Price */
+
+        .food-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price {
+            color: #222;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        /* Veg */
+
+        .veg {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .nonveg {
+            display: inline-block;
+            background: #ffebee;
+            color: #c62828;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Add Cart */
+
+        .cart-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            color: white;
+            padding: 12px;
+            border-radius: 25px;
+            margin-top: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(255,64,129,0.3);
+        }
+
+        /* Empty */
+
+        .empty {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto 60px;
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.08);
+        }
+
+        .empty-icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            color: #ff4081;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        /* Back */
+
+        .back-section {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #ff4081;
+            font-weight: bold;
+            border: 2px solid #ff4081;
+            padding: 11px 22px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ff4081;
+            color: white;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #ff6b35;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 950px) {
+
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-header h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 Crazy Crave
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'index' %}">
+            🏠 Home
+        </a>
+
+        <a href="{% url 'customer_home' username %}">
+            🍽️ Restaurants
+        </a>
+
+        <a href="{% url 'show_cart' username %}">
+            🛒 Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Header -->
+
+<section class="menu-header">
+
+    <h1>
+        🍕 {{ restaurant.name }}
+    </h1>
+
+    <p>
+        Explore delicious food from
+        <span class="restaurant-name">
+            {{ restaurant.name }}
+        </span>
+    </p>
+
+</section>
+
+
+{% if itemList %}
+
+
+<!-- Food Cards -->
+
+<div class="menu-grid">
+
+    {% for item in itemList %}
+
+        <div class="food-card">
+
+
+            <img
+                src="{{ item.picture }}"
+                alt="{{ item.name }}"
+                class="food-image"
+            >
+
+
+            <div class="food-content">
+
+                <h2>
+                    {{ item.name }}
+                </h2>
+
+
+                <p class="description">
+                    {{ item.description }}
+                </p>
+
+
+                {% if item.vegeterian %}
+
+                    <span class="veg">
+                        🟢 Vegetarian
+                    </span>
+
+                {% else %}
+
+                    <span class="nonveg">
+                        🔴 Non-Vegetarian
+                    </span>
+
+                {% endif %}
+
+
+                <div class="food-bottom">
+
+                    <span class="price">
+                        ₹{{ item.price }}
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="{% url 'add_to_cart' item.id username %}"
+                    class="cart-btn"
+                >
+                    🛒 Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% else %}
+
+
+<!-- Empty Menu -->
+
+<div class="empty">
+
+    <div class="empty-icon">
+        🍽️
+    </div>
+
+    <h2>
+        Menu is Empty
+    </h2>
+
+    <p>
+        Sorry, there are no food items available
+        at this restaurant right now.
+    </p>
+
+    <a
+        href="{% url 'customer_home' username %}"
+        class="back-btn"
+    >
+        ← Browse Restaurants
+    </a>
+
+</div>
+
+{% endif %}
+
+
+<!-- Back -->
+
+<div class="back-section">
+
+    <a
+        href="{% url 'customer_home' username %}"
+        class="back-btn"
+    >
+        ← Back to Restaurants
+    </a>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026
+        <span>Crazy Crave</span>
+        | Made with ❤️ for food lovers
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1037 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Menu - Crazy Crave</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff8f2;
+            color: #222;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            background: linear-gradient(
+                135deg,
+                #ff6b35,
+                #ff4081
+            );
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: white;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+
+        }
+
+
+        .logo {
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 12px;
+
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            padding: 9px 15px;
+
+            border-radius: 20px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .nav-links a:hover {
+
+            background: rgba(255,255,255,0.2);
+
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+
+            text-align: center;
+
+            padding: 45px 20px 25px;
+
+        }
+
+
+        .page-header h1 {
+
+            color: #ff4081;
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .page-header p {
+
+            color: #666;
+
+            font-size: 17px;
+
+        }
+
+
+        .restaurant-name {
+
+            color: #ff6b35;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ================= MAIN FORM ================= */
+
+        .form-container {
+
+            width: 90%;
+
+            max-width: 700px;
+
+            margin: 0 auto 45px;
+
+        }
+
+
+        .form-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.1);
+
+        }
+
+
+        .form-card h2 {
+
+            color: #ff6b35;
+
+            margin-bottom: 22px;
+
+            font-size: 27px;
+
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .error-message {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            border: 1px solid #ffcdd2;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            margin-bottom: 22px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ================= FORM GROUP ================= */
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #444;
+
+        }
+
+
+        .form-group input,
+
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 2px solid #eee;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .form-group textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+
+        }
+
+
+        .form-group input:focus,
+
+        .form-group textarea:focus {
+
+            border-color: #ff4081;
+
+            box-shadow:
+                0 0 8px rgba(255,64,129,0.15);
+
+        }
+
+
+        /* ================= VEGETARIAN ================= */
+
+        .veg-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: #f1f8e9;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .veg-box input {
+
+            width: 18px;
+
+            height: 18px;
+
+            accent-color: #2e7d32;
+
+        }
+
+
+        .veg-box label {
+
+            color: #2e7d32;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ================= ADD BUTTON ================= */
+
+        .add-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 30px;
+
+            background: linear-gradient(
+                135deg,
+                #ff6b35,
+                #ff4081
+            );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .add-btn:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 20px rgba(255,64,129,0.3);
+
+        }
+
+
+        /* ================= EXISTING MENU ================= */
+
+        .menu-section {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding-bottom: 45px;
+
+        }
+
+
+        .menu-section h2 {
+
+            text-align: center;
+
+            color: #ff4081;
+
+            margin-bottom: 25px;
+
+            font-size: 30px;
+
+        }
+
+
+        .menu-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+
+        }
+
+
+        /* ================= MENU CARD ================= */
+
+        .menu-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 22px rgba(0,0,0,0.09);
+
+            transition: 0.3s;
+
+        }
+
+
+        .menu-card:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.14);
+
+        }
+
+
+        .menu-image {
+
+            width: 100%;
+
+            height: 190px;
+
+            object-fit: cover;
+
+        }
+
+
+        .menu-content {
+
+            padding: 20px;
+
+        }
+
+
+        .menu-content h3 {
+
+            color: #ff6b35;
+
+            margin-bottom: 8px;
+
+            font-size: 21px;
+
+        }
+
+
+        .description {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .price {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #222;
+
+        }
+
+
+        /* ================= FOOD TYPE ================= */
+
+        .veg {
+
+            display: inline-block;
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+        }
+
+
+        .nonveg {
+
+            display: inline-block;
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+
+            background: white;
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 7px 20px rgba(0,0,0,0.08);
+
+        }
+
+
+        .empty-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .empty h3 {
+
+            color: #ff4081;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .empty p {
+
+            color: #777;
+
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back-btn {
+
+            display: block;
+
+            width: fit-content;
+
+            margin: 0 auto 45px;
+
+            color: #ff4081;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            border: 2px solid #ff4081;
+
+            padding: 10px 20px;
+
+            border-radius: 25px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .back-btn:hover {
+
+            background: #ff4081;
+
+            color: white;
+
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+
+            background: #222;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+        }
+
+
+        footer span {
+
+            color: #ff6b35;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 950px) {
+
+            .menu-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+
+            .menu-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .page-header h1 {
+
+                font-size: 30px;
+
+            }
+
+
+            .form-card {
+
+                padding: 25px 20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🍔 Crazy Crave
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'admin_home' %}">
+            🏠 Dashboard
+        </a>
+
+        <a href="{% url 'open_show_restaurant' %}">
+            🍽️ Restaurants
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HEADER ================= -->
+
+<section class="page-header">
+
+    <h1>
+
+        🍕 Manage Menu
+
+    </h1>
+
+
+    <p>
+
+        Manage food items for
+
+        <span class="restaurant-name">
+
+            {{ restaurant.name }}
+
+        </span>
+
+    </p>
+
+</section>
+
+
+<!-- ================= ADD FOOD ================= -->
+
+<div class="form-container">
+
+    <div class="form-card">
+
+
+        <h2>
+
+            ➕ Add Food Item
+
+        </h2>
+
+
+        <!-- Error -->
+
+        {% if error %}
+
+            <div class="error-message">
+
+                ⚠️ {{ error }}
+
+            </div>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            action="{% url 'update_menu' restaurant.id %}"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- Food Name -->
+
+            <div class="form-group">
+
+                <label for="name">
+
+                    🍕 Food Name
+
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Example: Chicken Biryani"
+                    value="{{ request.POST.name }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label for="description">
+
+                    📝 Description
+
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter food description"
+                    required
+                >{{ request.POST.description }}</textarea>
+
+            </div>
+
+
+            <!-- Price -->
+
+            <div class="form-group">
+
+                <label for="price">
+
+                    💰 Price
+
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="Enter price"
+                    min="1"
+                    step="0.01"
+                    value="{{ request.POST.price }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Picture -->
+
+            <div class="form-group">
+
+                <label for="picture">
+
+                    🖼️ Food Image URL
+
+                </label>
+
+                <input
+                    type="url"
+                    id="picture"
+                    name="picture"
+                    placeholder="https://example.com/food.jpg"
+                    value="{{ request.POST.picture }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Vegetarian -->
+
+            <div class="veg-box">
+
+                <input
+                    type="checkbox"
+                    id="vegeterian"
+                    name="vegeterian"
+                >
+
+                <label for="vegeterian">
+
+                    🟢 This is a Vegetarian item
+
+                </label>
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button
+                type="submit"
+                class="add-btn"
+            >
+
+                ➕ Add Food Item
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= EXISTING MENU ================= -->
+
+<section class="menu-section">
+
+    <h2>
+
+        🍽️ Existing Menu
+
+    </h2>
+
+
+    {% if itemList %}
+
+
+        <div class="menu-grid">
+
+
+            {% for item in itemList %}
+
+
+                <div class="menu-card">
+
+
+                    <img
+                        src="{{ item.picture }}"
+                        alt="{{ item.name }}"
+                        class="menu-image"
+                    >
+
+
+                    <div class="menu-content">
+
+
+                        <h3>
+
+                            {{ item.name }}
+
+                        </h3>
+
+
+                        <p class="description">
+
+                            {{ item.description }}
+
+                        </p>
+
+
+                        <div class="price">
+
+                            ₹{{ item.price }}
+
+                        </div>
+
+
+                        {% if item.vegeterian %}
+
+                            <span class="veg">
+
+                                🟢 Vegetarian
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="nonveg">
+
+                                🔴 Non-Vegetarian
+
+                            </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+
+            <div class="empty-icon">
+
+                🍽️
+
+            </div>
+
+
+            <h3>
+
+                No Food Items Yet
+
+            </h3>
+
+
+            <p>
+
+                Add the first food item using the form above.
+
+            </p>
+
+
+        </div>
+
+
+    {% endif %}
+
+</section>
+
+
+<!-- ================= BACK ================= -->
+
+<a
+    href="{% url 'open_show_restaurant' %}"
+    class="back-btn"
+>
+
+    ← Back to Restaurants
+
+</a>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+
+        © 2026
+
+        <span>Crazy Crave</span>
+
+        | Admin Panel
+
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

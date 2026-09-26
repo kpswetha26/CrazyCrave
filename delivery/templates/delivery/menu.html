@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Menu - Crazy Crave</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: linear-gradient(
+                90deg,
+                #ff6f00,
+                #ff4081
+            );
+
+            padding: 18px 50px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        /* Header */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #e65100;
+            font-size: 35px;
+        }
+
+        /* Buttons */
+
+        .add-btn {
+            background: #4caf50;
+            color: white;
+
+            padding: 12px 20px;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #388e3c;
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            display: inline-block;
+
+            margin-bottom: 25px;
+
+            padding: 10px 18px;
+
+            background: #ff9800;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #ef6c00;
+        }
+
+        /* Menu Grid */
+
+        .menu-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+        }
+
+        /* Menu Card */
+
+        .menu-card {
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.15);
+
+            transition: 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Image */
+
+        .menu-card img {
+            width: 100%;
+
+            height: 200px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        /* Content */
+
+        .menu-content {
+            padding: 20px;
+        }
+
+        .menu-content h2 {
+            color: #e65100;
+
+            font-size: 24px;
+
+            margin-bottom: 8px;
+        }
+
+        .restaurant-name {
+            color: #ff4081;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .category {
+            display: inline-block;
+
+            background: #fff3e0;
+
+            color: #e65100;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        .price {
+            color: #2e7d32;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #555;
+
+            line-height: 1.5;
+
+            margin-bottom: 18px;
+        }
+
+        /* Admin buttons */
+
+        .admin-buttons {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            flex: 1;
+
+            text-align: center;
+
+            padding: 10px;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            color: white;
+        }
+
+        .edit-btn {
+            background: #2196f3;
+        }
+
+        .edit-btn:hover {
+            background: #1976d2;
+        }
+
+        .delete-btn {
+            background: #f44336;
+        }
+
+        .delete-btn:hover {
+            background: #d32f2f;
+        }
+
+        /* Empty message */
+
+        .empty {
+            background: white;
+
+            padding: 50px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .empty h2 {
+            color: #e65100;
+
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #666;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 15px 20px;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+            .header {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+        }
+        .cart-btn {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: linear-gradient(
+        90deg,
+        #ff6f00,
+        #ff4081
+    );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.cart-btn:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 5px 15px rgba(255,64,129,0.3);
+}
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            🍔 Crazy Crave
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'index' %}">
+                🏠 Home
+            </a>
+
+            <a href="{% url 'open_show_restaurant' %}">
+                🍴 Restaurants
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+
+    <div class="container">
+
+
+        <!-- Back button for restaurant menu -->
+
+        {% if restaurant %}
+
+            <a
+                href="{% url 'open_show_restaurant' %}"
+                class="back-btn">
+
+                ← Back to Restaurants
+
+            </a>
+
+        {% endif %}
+
+
+        <!-- Header -->
+
+        <div class="header">
+
+            {% if restaurant %}
+
+                <h1>
+                    🍕 {{ restaurant.name }} Menu
+                </h1>
+
+            {% else %}
+
+                <h1>
+                    🍕 Our Menu
+                </h1>
+
+            {% endif %}
+
+
+            <!-- Only Admin -->
+
+            {% if is_admin %}
+
+                <a
+                    href="{% url 'open_add_menu' %}"
+                    class="add-btn">
+
+                    + Add Menu Item
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Menu -->
+
+        {% if menuList %}
+
+            <div class="menu-grid">
+
+
+                {% for menu in menuList %}
+
+                    <div class="menu-card">
+
+
+                        <!-- Image -->
+
+                        <img
+                            src="{{ menu.picture }}"
+                            alt="{{ menu.name }}"
+                        >
+
+
+                        <div class="menu-content">
+
+
+                            <!-- Name -->
+
+                            <h2>
+                                {{ menu.name }}
+                            </h2>
+
+
+                            <!-- Restaurant -->
+
+                            {% if menu.restaurant %}
+
+                                <p class="restaurant-name">
+
+                                    🍴
+                                    {{ menu.restaurant.name }}
+
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- Category -->
+
+                            <span class="category">
+
+                                {{ menu.category }}
+
+                            </span>
+
+
+                            <!-- Price -->
+
+                            <div class="price">
+
+                                ₹{{ menu.price }}
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            <p class="description">
+
+                                {{ menu.description }}
+
+                            </p>
+
+
+                            <!-- Admin Controls -->
+
+                           {% if is_admin %}
+
+    <div class="admin-buttons">
+
+        <a
+            href="{% url 'update_menu' menu.id %}"
+            class="edit-btn">
+
+            ✏️ Edit
+
+        </a>
+
+        <a
+            href="{% url 'delete_menu' menu.id %}"
+            class="delete-btn">
+
+            🗑️ Delete
+
+        </a>
+
+    </div>
+
+{% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- No Menu -->
+
+            <div class="empty">
+
+                <h2>
+                    🍽️ No Menu Items
+                </h2>
+
+                <p>
+                    No menu items are available for this restaurant.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</body>
+</html>

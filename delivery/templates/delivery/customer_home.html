@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurants | Crazy Crave</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8f2,
+                    #ffe8ef
+                );
+
+            color: #333;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff6b35,
+                    #ff4081
+                );
+
+            padding: 17px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 28px;
+
+            font-weight: bold;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 22px;
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #fff3cd;
+
+            transform: translateY(-2px);
+        }
+
+
+        .cart-btn {
+
+            background: white;
+
+            color: #ff4081 !important;
+
+            padding: 9px 18px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 4px 10px rgba(0,0,0,0.12);
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 40px auto 30px;
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b35,
+                    #ff4081
+                );
+
+            color: white;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .hero-content h1 {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .hero-content p {
+
+            font-size: 17px;
+
+            line-height: 1.6;
+
+            opacity: 0.95;
+        }
+
+
+        .hero-food {
+
+            font-size: 100px;
+
+            animation: floatFood 3s ease-in-out infinite;
+        }
+
+
+        @keyframes floatFood {
+
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 0 auto 60px;
+        }
+
+
+        .section-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin: 35px 0 25px;
+        }
+
+
+        .section-heading h2 {
+
+            color: #333;
+
+            font-size: 30px;
+        }
+
+
+        .section-heading span {
+
+            color: #ff4081;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= RESTAURANT GRID ================= */
+
+        .restaurant-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
+
+            gap: 28px;
+        }
+
+
+        /* ================= CARD ================= */
+
+        .restaurant-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 20px rgba(0,0,0,0.09);
+
+            transition: 0.3s;
+
+            position: relative;
+        }
+
+
+        .restaurant-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 15px 30px rgba(0,0,0,0.15);
+        }
+
+
+        /* ================= IMAGE ================= */
+
+        .restaurant-image {
+
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition: 0.4s;
+        }
+
+
+        .restaurant-card:hover
+        .restaurant-image {
+
+            transform: scale(1.05);
+        }
+
+
+        .image-container {
+
+            height: 210px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+
+        /* ================= RATING ================= */
+
+        .rating {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            color: #2e7d32;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 4px 10px rgba(0,0,0,0.15);
+        }
+
+
+        /* ================= CONTENT ================= */
+
+        .card-content {
+
+            padding: 22px;
+        }
+
+
+        .card-content h2 {
+
+            color: #333;
+
+            font-size: 23px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .cuisine {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            background: #fff0e8;
+
+            color: #ff5722;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 14px;
+        }
+
+
+        .description {
+
+            color: #777;
+
+            line-height: 1.5;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .view-menu {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 12px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: bold;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff6b35,
+                    #ff4081
+                );
+
+            transition: 0.3s;
+        }
+
+
+        .view-menu:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 15px rgba(255,64,129,0.25);
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+
+            background: white;
+
+            padding: 60px 20px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 20px rgba(0,0,0,0.08);
+        }
+
+
+        .empty-icon {
+
+            font-size: 70px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .empty h2 {
+
+            color: #ff5722;
+
+            margin-bottom: 10px;
+        }
+
+
+        .empty p {
+
+            color: #777;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+
+            background: #222;
+
+            color: #bbb;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 50px;
+        }
+
+
+        footer strong {
+
+            color: #ff6b35;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:700px) {
+
+            .navbar {
+
+                padding: 15px 20px;
+            }
+
+
+            .nav-links a:not(.cart-btn) {
+
+                display: none;
+            }
+
+
+            .hero {
+
+                width: 94%;
+
+                padding: 30px 20px;
+
+                text-align: center;
+
+                flex-direction: column;
+            }
+
+
+            .hero-content h1 {
+
+                font-size: 30px;
+            }
+
+
+            .hero-food {
+
+                font-size: 70px;
+            }
+
+
+            .container {
+
+                width: 94%;
+            }
+
+
+            .section-heading {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 5px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+
+    <div class="logo">
+
+        🍔 Crazy Crave
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'index' %}">
+            🏠 Home
+        </a>
+
+
+        <a href="{% url 'open_show_restaurant' %}">
+            🍴 Restaurants
+        </a>
+
+
+        <a
+            href="{% url 'show_cart' username %}"
+            class="cart-btn">
+
+            🛒 Cart
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+        <h1>
+
+            Hey {{ username }}! 👋
+
+        </h1>
+
+
+        <p>
+
+            Hungry? Let's find something delicious
+            for you today! 🍕🍔🍛
+
+        </p>
+
+    </div>
+
+
+    <div class="hero-food">
+
+        🍕🍔🍜
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= RESTAURANTS ================= -->
+
+<div class="container">
+
+
+    <div class="section-heading">
+
+        <h2>
+
+            🍴 Explore Restaurants
+
+        </h2>
+
+
+        <span>
+
+            {{ restaurantList|length }} Restaurants
+
+        </span>
+
+    </div>
+
+
+    {% if restaurantList %}
+
+
+    <div class="restaurant-grid">
+
+
+        {% for r in restaurantList %}
+
+
+        <div class="restaurant-card">
+
+
+            <!-- IMAGE -->
+
+            <div class="image-container">
+
+
+                <img
+                    src="{{ r.picture }}"
+                    alt="{{ r.name }}"
+                    class="restaurant-image"
+                >
+
+
+                <div class="rating">
+
+                    ⭐ {{ r.rating }}
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="card-content">
+
+
+                <h2>
+
+                    {{ r.name }}
+
+                </h2>
+
+
+                <span class="cuisine">
+
+                    🍽️ {{ r.cuisine }}
+
+                </span>
+
+
+                <p class="description">
+
+                    Enjoy delicious
+                    {{ r.cuisine }}
+                    dishes from
+                    {{ r.name }}.
+
+                </p>
+
+
+                <a
+                    href="{% url 'view_menu' r.id username %}"
+                    class="view-menu">
+
+                    🍽️ View Menu
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <div class="empty">
+
+
+        <div class="empty-icon">
+
+            🍽️
+
+        </div>
+
+
+        <h2>
+
+            No Restaurants Available
+
+        </h2>
+
+
+        <p>
+
+            We don't have any restaurants
+            available right now.
+
+        </p>
+
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+
+        © 2026
+        <strong>Crazy Crave</strong>.
+        All Rights Reserved.
+
+    </p>
+
+
+    <p>
+
+        Delicious food, delivered with ❤️
+
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
+

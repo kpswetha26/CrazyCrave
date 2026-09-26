@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Menu Item</title>
+
+    <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #fff3e0, #ffe0b2, #ffccbc);
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: linear-gradient(90deg, #ff512f, #dd2476);
+        padding: 18px 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .navbar h2 {
+        color: white;
+        margin: 0;
+        font-size: 25px;
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 25px;
+        font-weight: bold;
+    }
+
+    .navbar a:hover {
+        color: #ffe082;
+    }
+
+    .container {
+        width: 520px;
+        max-width: 92%;
+        margin: 50px auto;
+        background: rgba(255,255,255,0.96);
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #d84315;
+        font-size: 30px;
+    }
+
+    label {
+        display: block;
+        margin-top: 17px;
+        margin-bottom: 7px;
+        font-weight: bold;
+        color: #5d4037;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ffccbc;
+        border-radius: 8px;
+        font-size: 15px;
+        background: #fffaf7;
+        transition: 0.3s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #ff5722;
+        box-shadow: 0 0 6px rgba(255,87,34,0.3);
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 28px;
+        padding: 14px;
+        background: linear-gradient(90deg, #ff512f, #dd2476);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(221,36,118,0.35);
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #e65100;
+        font-weight: bold;
+    }
+
+    .back:hover {
+        color: #c2185b;
+        text-decoration: underline;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: #6d4c41;
+        font-weight: bold;
+    }
+
+</style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <h2>Crazy Crave</h2>
+
+        <div>
+            <a href="{% url 'open_menu' %}">Menu</a>
+            <a href="{% url 'open_show_restaurant' %}">Restaurants</a>
+        </div>
+
+    </div>
+
+
+    <!-- Add Menu Form -->
+
+    <div class="container">
+
+        <h1>Add Menu Item</h1>
+
+        <form action="{% url 'add_menu' %}" method="post">
+
+            {% csrf_token %}
+
+
+            <!-- Restaurant -->
+
+           <label>Restaurant</label>
+
+<select name="restaurant" required>
+
+    <option value="">-- Select Restaurant --</option>
+
+    {% for restaurant in restaurantList %}
+
+        <option value="{{ restaurant.id }}">
+            {{ restaurant.name }}
+        </option>
+
+    {% endfor %}
+
+</select>
+
+            <!-- Menu Name -->
+
+            <label>Menu Name</label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter menu name"
+                required
+            >
+
+
+            <!-- Picture -->
+
+            <label>Picture URL</label>
+
+            <input
+                type="text"
+                name="picture"
+                placeholder="Enter image URL"
+                required
+            >
+
+
+            <!-- Category -->
+
+            <label>Category</label>
+
+            <input
+                type="text"
+                name="category"
+                placeholder="Example: Biryani, Pizza, Burger"
+                required
+            >
+
+
+            <!-- Price -->
+
+            <label>Price</label>
+
+            <input
+                type="number"
+                name="price"
+                placeholder="Enter price"
+                step="0.01"
+                min="0"
+                required
+            >
+
+
+            <!-- Description -->
+
+            <label>Description</label>
+
+            <textarea
+                name="description"
+                placeholder="Enter menu description"
+                required
+            ></textarea>
+
+
+            <!-- Submit -->
+
+            <button type="submit">
+                Add Menu Item
+            </button>
+
+        </form>
+
+
+        <!-- Back -->
+
+        <a href="{% url 'open_menu' %}" class="back">
+            ← Back to Menu
+        </a>
+
+    </div>
+
+
+    <footer>
+        © 2026 Crazy Crave. All rights reserved.
+    </footer>
+
+</body>
+
+</html>

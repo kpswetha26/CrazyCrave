@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Crazy Crave</title>
+
+
+    <!-- Razorpay Checkout -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+            background: #fff8f2;
+            color: #222;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: linear-gradient(
+                135deg,
+                #ff6b35,
+                #ff4081
+            );
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            color: white;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
+        }
+
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 9px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .checkout-header {
+            text-align: center;
+            padding: 45px 20px 25px;
+        }
+
+
+        .checkout-header h1 {
+            color: #ff4081;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+
+        .checkout-header p {
+            color: #666;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .checkout-container {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 350px;
+
+            gap: 25px;
+
+            padding-bottom: 50px;
+        }
+
+
+        /* =========================
+           PAYMENT CARD
+        ========================= */
+
+        .payment-card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 6px 22px rgba(0,0,0,0.1);
+        }
+
+
+        .payment-card h2 {
+
+            color: #ff6b35;
+
+            margin-bottom: 20px;
+        }
+
+
+        .payment-info {
+
+            background: #fff3e0;
+
+            padding: 18px;
+
+            border-radius: 15px;
+
+            margin-bottom: 25px;
+
+            line-height: 1.7;
+        }
+
+
+        .payment-info strong {
+            color: #ff4081;
+        }
+
+
+        .secure {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #2e7d32;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary {
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 6px 22px rgba(0,0,0,0.1);
+
+            height: fit-content;
+        }
+
+
+        .summary h2 {
+
+            color: #ff4081;
+
+            margin-bottom: 20px;
+        }
+
+
+        .summary-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin: 15px 0;
+
+            color: #555;
+        }
+
+
+        .total {
+
+            border-top:
+                2px dashed #ddd;
+
+            padding-top: 18px;
+
+            margin-top: 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 23px;
+
+            font-weight: bold;
+        }
+
+
+        .total span:last-child {
+
+            color: #ff6b35;
+        }
+
+
+        /* =========================
+           PAY BUTTON
+        ========================= */
+
+        .pay-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff6b35,
+                    #ff4081
+                );
+
+            color: white;
+
+            padding: 16px;
+
+            border-radius: 30px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 25px;
+
+            transition: 0.3s;
+        }
+
+
+        .pay-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(255,64,129,0.3);
+        }
+
+
+        .pay-btn:disabled {
+
+            background: #999;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        .back-cart {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #ff4081;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error {
+
+            background: #ffebee;
+
+            color: #c62828;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin: 20px auto;
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            background: #222;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        footer span {
+            color: #ff6b35;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+
+            .checkout-container {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 Crazy Crave
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{% url 'index' %}">
+            🏠 Home
+        </a>
+
+
+        <a href="{% url 'customer_home' username %}">
+            🍽️ Restaurants
+        </a>
+
+
+        <a href="{% url 'show_cart' username %}">
+            🛒 Cart
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<section class="checkout-header">
+
+    <h1>
+        💳 Checkout
+    </h1>
+
+
+    <p>
+        Complete your payment and enjoy your delicious food!
+    </p>
+
+</section>
+
+
+
+{% if error %}
+
+<div class="error">
+
+    {{ error }}
+
+</div>
+
+{% endif %}
+
+
+
+<!-- =========================
+     CHECKOUT
+========================= -->
+
+<div class="checkout-container">
+
+
+    <!-- PAYMENT CARD -->
+
+    <div class="payment-card">
+
+        <h2>
+            🔐 Secure Payment
+        </h2>
+
+
+        <div class="payment-info">
+
+            <p>
+
+                👤
+                <strong>Customer:</strong>
+
+                {{ username }}
+
+            </p>
+
+
+            <p>
+
+                💰
+                <strong>Amount:</strong>
+
+                ₹{{ total_price }}
+
+            </p>
+
+
+            <p>
+
+                🔒
+                Your payment will be processed
+                securely through Razorpay.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PAY BUTTON -->
+
+        <button
+            type="button"
+            id="rzp-button"
+            class="pay-btn">
+
+            💳 Pay ₹{{ total_price }}
+
+        </button>
+
+
+
+        <div class="secure">
+
+            🛡️ Secure & Encrypted Payment
+
+        </div>
+
+
+
+        <a
+            href="{% url 'show_cart' username %}"
+            class="back-cart">
+
+            ← Back to Cart
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ORDER SUMMARY -->
+
+    <div class="summary">
+
+        <h2>
+            🧾 Order Summary
+        </h2>
+
+
+        <div class="summary-row">
+
+            <span>
+                Food Items
+            </span>
+
+            <span>
+                ₹{{ total_price }}
+            </span>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Delivery
+            </span>
+
+            <span>
+                FREE 🎉
+            </span>
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <span>
+                ₹{{ total_price }}
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<footer>
+
+    <p>
+
+        © 2026
+        <span>Crazy Crave</span>
+        |
+        Made with ❤️ for food lovers
+
+    </p>
+
+</footer>
+
+
+
+<!-- ==================================================
+     RAZORPAY PAYMENT SCRIPT
+================================================== -->
+
+<script>
+
+    /*
+    ================================================
+       VALUES FROM DJANGO
+    ================================================
+    */
+
+    const razorpayKey =
+        "{{ razorpay_key_id|escapejs }}";
+
+
+    const orderId =
+        "{{ order_id|escapejs }}";
+
+
+    const amount =
+        "{{ amount|escapejs }}";
+
+
+    const username =
+        "{{ username|escapejs }}";
+
+
+    /*
+    ================================================
+       GET BUTTON
+    ================================================
+    */
+
+    const payButton =
+        document.getElementById("rzp-button");
+
+
+    /*
+    ================================================
+       DEBUG
+    ================================================
+    */
+
+    console.log(
+        "===== CRAZY CRAVE RAZORPAY ====="
+    );
+
+    console.log(
+        "Razorpay:",
+        typeof Razorpay
+    );
+
+    console.log(
+        "Key:",
+        razorpayKey
+    );
+
+    console.log(
+        "Order:",
+        orderId
+    );
+
+    console.log(
+        "Amount:",
+        amount
+    );
+
+
+    /*
+    ================================================
+       BUTTON CLICK
+    ================================================
+    */
+
+    payButton.addEventListener(
+        "click",
+        function () {
+
+
+            console.log(
+                "PAY BUTTON CLICKED"
+            );
+
+
+            /*
+            ------------------------------------------
+               CHECK RAZORPAY
+            ------------------------------------------
+            */
+
+            if (
+                typeof Razorpay ===
+                "undefined"
+            ) {
+
+                alert(
+                    "Razorpay library is not loaded."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            ------------------------------------------
+               CHECK KEY
+            ------------------------------------------
+            */
+
+            if (
+                !razorpayKey ||
+                razorpayKey.trim() === ""
+            ) {
+
+                alert(
+                    "Razorpay Key ID is missing."
+                );
+
+                console.error(
+                    "KEY IS EMPTY"
+                );
+
+                return;
+
+            }
+
+
+            /*
+            ------------------------------------------
+               CHECK ORDER
+            ------------------------------------------
+            */
+
+            if (
+                !orderId ||
+                orderId.trim() === ""
+            ) {
+
+                alert(
+                    "Razorpay Order ID is missing."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            ------------------------------------------
+               CHECK AMOUNT
+            ------------------------------------------
+            */
+
+            const paymentAmount =
+                Number(amount);
+
+
+            if (
+                !paymentAmount ||
+                paymentAmount <= 0
+            ) {
+
+                alert(
+                    "Invalid payment amount."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            ==========================================
+               RAZORPAY OPTIONS
+            ==========================================
+            */
+
+            const options = {
+
+                key:
+                    razorpayKey,
+
+                amount:
+                    paymentAmount,
+
+                currency:
+                    "INR",
+
+                name:
+                    "Crazy Crave",
+
+                description:
+                    "Food Order Payment",
+
+                order_id:
+                    orderId,
+
+
+                prefill: {
+
+                    name:
+                        username
+
+                },
+
+
+                theme: {
+
+                    color:
+                        "#ff4081"
+
+                },
+
+
+                /*
+                ======================================
+                   SUCCESS
+                ======================================
+                */
+
+                handler:
+                    function (response) {
+
+
+                        console.log(
+                            "PAYMENT SUCCESS"
+                        );
+
+
+                        console.log(
+                            response
+                        );
+
+
+                        /*
+                        For now redirect to Orders
+                        */
+
+                        window.location.href =
+                            "{% url 'orders' username %}";
+
+                    }
+
+            };
+
+
+            /*
+            ==========================================
+               CREATE RAZORPAY
+            ==========================================
+            */
+
+            try {
+
+
+                const razorpay =
+                    new Razorpay(options);
+
+
+                /*
+                --------------------------------------
+                   PAYMENT FAILED
+                --------------------------------------
+                */
+
+                razorpay.on(
+                    "payment.failed",
+                    function (response) {
+
+
+                        console.error(
+                            "PAYMENT FAILED",
+                            response
+                        );
+
+
+                        payButton.disabled =
+                            false;
+
+
+                        payButton.innerText =
+                            "💳 Pay ₹{{ total_price }}";
+
+
+                        if (
+                            response.error
+                            &&
+                            response.error.description
+                        ) {
+
+                            alert(
+                                "Payment failed:\n\n"
+                                +
+                                response.error.description
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                --------------------------------------
+                   OPEN RAZORPAY
+                --------------------------------------
+                */
+
+                console.log(
+                    "Opening Razorpay..."
+                );
+
+
+                razorpay.open();
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Razorpay Error:",
+                    error
+                );
+
+
+                payButton.disabled =
+                    false;
+
+
+                payButton.innerText =
+                    "💳 Pay ₹{{ total_price }}";
+
+
+                alert(
+                    "Unable to open Razorpay:\n\n"
+                    +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Update Restaurant - Crazy Crave</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fff8f2;
+            color: #222;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 9px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Header */
+
+        .page-header {
+            text-align: center;
+            padding: 45px 20px 25px;
+        }
+
+        .page-header h1 {
+            color: #ff4081;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        /* Form */
+
+        .form-container {
+            width: 90%;
+            max-width: 650px;
+            margin: 0 auto 50px;
+        }
+
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Current image */
+
+        .current-image {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .current-image img {
+            width: 180px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        .current-image p {
+            margin-top: 8px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* Form group */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #ff4081;
+            box-shadow: 0 0 8px rgba(255,64,129,0.15);
+        }
+
+        /* Update button */
+
+        .update-btn {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff6b35, #ff4081);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .update-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,64,129,0.3);
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #ff4081;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #ff6b35;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navbar -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🍔 Crazy Crave
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{% url 'admin_home' %}">
+            🏠 Dashboard
+        </a>
+
+        <a href="{% url 'open_show_restaurant' %}">
+            🍽️ Restaurants
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- Header -->
+
+<section class="page-header">
+
+    <h1>
+        ✏️ Update Restaurant
+    </h1>
+
+    <p>
+        Update the restaurant information below.
+    </p>
+
+</section>
+
+
+<!-- Form -->
+
+<div class="form-container">
+
+    <div class="form-card">
+
+
+        <!-- Current Image -->
+
+        <div class="current-image">
+
+            <img
+                src="{{ restaurant.picture }}"
+                alt="{{ restaurant.name }}"
+            >
+
+            <p>
+                Current restaurant image
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{% url 'update_restaurant' restaurant.id %}"
+        >
+
+            {% csrf_token %}
+
+
+            <!-- Name -->
+
+            <div class="form-group">
+
+                <label>
+                    🏪 Restaurant Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ restaurant.name }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Picture -->
+
+            <div class="form-group">
+
+                <label>
+                    🖼️ Restaurant Image URL
+                </label>
+
+                <input
+                    type="url"
+                    name="picture"
+                    value="{{ restaurant.picture }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Cuisine -->
+
+            <div class="form-group">
+
+                <label>
+                    🍕 Cuisine
+                </label>
+
+                <input
+                    type="text"
+                    name="cuisine"
+                    value="{{ restaurant.cuisine }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Rating -->
+
+            <div class="form-group">
+
+                <label>
+                    ⭐ Rating
+                </label>
+
+                <input
+                    type="number"
+                    name="rating"
+                    value="{{ restaurant.rating }}"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button
+                type="submit"
+                class="update-btn"
+            >
+                💾 Update Restaurant
+            </button>
+
+
+        </form>
+
+
+        <a
+            href="{% url 'open_show_restaurant' %}"
+            class="back-btn"
+        >
+            ← Back to Restaurants
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026
+        <span>Crazy Crave</span>
+        | Admin Panel
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

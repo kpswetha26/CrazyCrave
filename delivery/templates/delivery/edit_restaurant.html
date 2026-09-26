@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Restaurant - Crazy Crave</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #fff5e6,
+                #ffe0b2
+            );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        .container {
+
+            width: 90%;
+
+            max-width: 500px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #e64a19;
+
+            margin-bottom: 25px;
+        }
+
+        .restaurant-name {
+
+            text-align: center;
+
+            color: #555;
+
+            margin-bottom: 25px;
+        }
+
+        label {
+
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+        }
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #ff5722;
+        }
+
+        .buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+        button {
+
+            flex: 1;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #ff5722;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+
+            background: #e64a19;
+        }
+
+        .cancel {
+
+            flex: 1;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            background: #777;
+
+            color: white;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .cancel:hover {
+
+            background: #555;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+        <h1>
+            ✏️ Edit Restaurant
+        </h1>
+
+
+        <div class="restaurant-name">
+
+            <strong>
+                {{ restaurant.name }}
+            </strong>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- CUISINE -->
+
+            <label for="cuisine">
+                🍛 Cuisine
+            </label>
+
+            <input
+                type="text"
+                id="cuisine"
+                name="cuisine"
+                value="{{ restaurant.cuisine }}"
+                placeholder="Enter cuisine"
+                required
+            >
+
+
+            <!-- RATING -->
+
+            <label for="rating">
+                ⭐ Rating
+            </label>
+
+            <input
+                type="number"
+                id="rating"
+                name="rating"
+                value="{{ restaurant.rating }}"
+                min="0"
+                max="5"
+                step="0.1"
+                placeholder="Enter rating"
+                required
+            >
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button type="submit">
+                    Update
+                </button>
+
+                <a
+                    href="{% url 'open_show_restaurant' %}"
+                    class="cancel">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+
+</body>
+
+</html>
+
