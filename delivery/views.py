@@ -554,7 +554,12 @@ def checkout(request, username):
         cart_items = []
         total_price = 0
 
+    # -----------------------------------------------------
+    # CHECK EMPTY CART
+    # -----------------------------------------------------
+
     if total_price == 0:
+
         return render(
             request,
             'delivery/checkout.html',
@@ -566,7 +571,10 @@ def checkout(request, username):
             }
         )
 
-    # SAFE DEBUG - does NOT print the secret or actual key
+    # -----------------------------------------------------
+    # SAFE RAZORPAY ENVIRONMENT CHECK
+    # -----------------------------------------------------
+
     print(
         "RAZORPAY KEY PRESENT:",
         bool(settings.RAZORPAY_KEY_ID)
@@ -577,7 +585,12 @@ def checkout(request, username):
         bool(settings.RAZORPAY_KEY_SECRET)
     )
 
+    # -----------------------------------------------------
+    # CHECK KEY ID
+    # -----------------------------------------------------
+
     if not settings.RAZORPAY_KEY_ID:
+
         return render(
             request,
             'delivery/checkout.html',
@@ -589,7 +602,12 @@ def checkout(request, username):
             }
         )
 
+    # -----------------------------------------------------
+    # CHECK SECRET
+    # -----------------------------------------------------
+
     if not settings.RAZORPAY_KEY_SECRET:
+
         return render(
             request,
             'delivery/checkout.html',
@@ -601,12 +619,20 @@ def checkout(request, username):
             }
         )
 
+    # -----------------------------------------------------
+    # CREATE RAZORPAY CLIENT
+    # -----------------------------------------------------
+
     client = razorpay.Client(
         auth=(
             settings.RAZORPAY_KEY_ID,
             settings.RAZORPAY_KEY_SECRET
         )
     )
+
+    # -----------------------------------------------------
+    # CREATE RAZORPAY ORDER
+    # -----------------------------------------------------
 
     order_data = {
         'amount': int(total_price * 100),
@@ -618,6 +644,10 @@ def checkout(request, username):
         data=order_data
     )
 
+    # -----------------------------------------------------
+    # SEND DATA TO CHECKOUT TEMPLATE
+    # -----------------------------------------------------
+
     return render(
         request,
         'delivery/checkout.html',
@@ -625,9 +655,15 @@ def checkout(request, username):
             'username': username,
             'cart_items': cart_items,
             'total_price': total_price,
-            'razorpay_key_id': settings.RAZORPAY_KEY_ID,
-            'order_id': order['id'],
-            'amount': int(total_price * 100)
+
+            'razorpay_key_id':
+                settings.RAZORPAY_KEY_ID,
+
+            'order_id':
+                order['id'],
+
+            'amount':
+                int(total_price * 100)
         }
     )
 
