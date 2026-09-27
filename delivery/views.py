@@ -582,8 +582,10 @@ def checkout(request, username):
     order = client.order.create(
         data=order_data
     )
-    print("RAZORPAY KEY BEING SENT:", settings.RAZORPAY_KEY_ID)
-
+    print(
+    "RAZORPAY KEY PRESENT:",
+    bool(settings.RAZORPAY_KEY_ID)
+)
     return render(
         request,
         'delivery/checkout.html',
