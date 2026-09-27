@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
-from django.core.management import call_command
-from delivery.models import Restaurant
 from pathlib import Path
+
+from delivery.models import Restaurant
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
