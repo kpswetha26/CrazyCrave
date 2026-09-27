@@ -566,6 +566,41 @@ def checkout(request, username):
             }
         )
 
+    # SAFE DEBUG - does NOT print the secret or actual key
+    print(
+        "RAZORPAY KEY PRESENT:",
+        bool(settings.RAZORPAY_KEY_ID)
+    )
+
+    print(
+        "RAZORPAY SECRET PRESENT:",
+        bool(settings.RAZORPAY_KEY_SECRET)
+    )
+
+    if not settings.RAZORPAY_KEY_ID:
+        return render(
+            request,
+            'delivery/checkout.html',
+            {
+                'username': username,
+                'cart_items': cart_items,
+                'total_price': total_price,
+                'error': 'Razorpay Key ID is missing on server.'
+            }
+        )
+
+    if not settings.RAZORPAY_KEY_SECRET:
+        return render(
+            request,
+            'delivery/checkout.html',
+            {
+                'username': username,
+                'cart_items': cart_items,
+                'total_price': total_price,
+                'error': 'Razorpay Secret is missing on server.'
+            }
+        )
+
     client = razorpay.Client(
         auth=(
             settings.RAZORPAY_KEY_ID,
@@ -582,10 +617,7 @@ def checkout(request, username):
     order = client.order.create(
         data=order_data
     )
-    print(
-    "RAZORPAY KEY PRESENT:",
-    bool(settings.RAZORPAY_KEY_ID)
-)
+
     return render(
         request,
         'delivery/checkout.html',
@@ -593,15 +625,9 @@ def checkout(request, username):
             'username': username,
             'cart_items': cart_items,
             'total_price': total_price,
-
-            'razorpay_key_id':
-                settings.RAZORPAY_KEY_ID,
-
-            'order_id':
-                order['id'],
-
-            'amount':
-                int(total_price * 100)
+            'razorpay_key_id': settings.RAZORPAY_KEY_ID,
+            'order_id': order['id'],
+            'amount': int(total_price * 100)
         }
     )
 
